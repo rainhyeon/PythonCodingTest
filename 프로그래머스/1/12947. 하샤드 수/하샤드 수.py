@@ -1,17 +1,8 @@
 def solution(x):
     answer = True
-    list_ans = []
-    sum_ans = 0
+    ans_map = map(int, str(x))
     
-    str_ans = str(x)
-    print(str_ans)
-    for i in str_ans:
-        list_ans.append(int(i))
-    
-    for i in list_ans:
-        sum_ans += i
-    
-    if x % sum_ans == 0:
+    if x % sum(ans_map) == 0:
         answer = True
     else:
         answer = False
