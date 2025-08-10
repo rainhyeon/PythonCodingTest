@@ -4,13 +4,13 @@ def solution(m, n, puddles):
     
     water = set((y-1, x-1) for x, y in puddles)
     
-    road = [[0] * m for _ in range(n)] # 행 * 열
+    road = [[0] * m for _ in range(n)]
     
     road[0][0] = 1
     
-    for i in range(n): # 행
-        for j in range(m): # 열
-            if (i, j) in water:
+    for i in range(n):
+        for j in range(m):
+            if (i,j) in water:
                 road[i][j] = 0
                 continue
             
@@ -19,7 +19,7 @@ def solution(m, n, puddles):
                 
             if j > 0:
                 road[i][j] += road[i][j-1]
-            
+                
             road[i][j] %= MOD
             
-    return road[i][j]
+    return road[n-1][m-1]
