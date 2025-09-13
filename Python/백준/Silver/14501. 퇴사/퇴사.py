@@ -9,10 +9,10 @@ def recur(index,price):
     global answer
     #print(f"{index}, {price}")
 
-    if index > N-1: # 범위를 넘어가면(N부터)
-        if index > N: return # 퇴사한 날 이후라면 최댓값 새로 갱신하지말고, 이전의 최댓값을 출력해라
-        # print(price)
+    if index == N: # 범위를 넘어가면(N부터)
         answer = max(answer, price) # 퇴사날 마지막날이후(N)이면 최댓값 계산을 해라
+        return
+    if index > N:
         return
 
     # 상담 한다면
