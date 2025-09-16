@@ -3,17 +3,10 @@
 
 N = int(input())
 
+dp = [0, 1] + [0]*(N-1)
 
-def fibo(n):
-    if dp[n] != -1:
-        return dp[n]
-    
-    dp[n] = fibo(n-1) + fibo(n-2)
+for i in range(2, N+1):
+    dp[i] = dp[i-1] + dp[i-2]
 
-    return dp[n]
 
-dp = [-1 for _ in range(N+1)]
-dp[0], dp[1] = 0, 1
-
-answer = fibo(N)
-print(answer)
+print(dp[N])
