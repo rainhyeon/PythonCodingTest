@@ -1,32 +1,15 @@
-# https://www.acmicpc.net/problem/9095
-# 더하거나 안더하거나
+# DP로 풀기
 
+T = int(input())
 
-N = int(input()) # 테스트 케이스 개수
+# n은 문제에서 최대 11
+dp = [0] * 12
+dp[1], dp[2], dp[3] = 1, 2, 4
 
-count = 0
-answer = []
+for i in range(4, 12):
+    # 1더하기전, 2더하기전, 3더하기 전
+    dp[i] = dp[i-1] + dp[i-2] + dp[i-3]
 
-def recur(num, sum):
-    global count
-
-    if num == sum:
-        count += 1
-        return 
-
-    if num > sum:
-        # 1 더하기 더하거나
-        recur(num, sum + 1)
-        # 2 더하기
-        recur(num, sum + 2)
-        # 3 더하기
-        recur(num, sum + 3)
-
-for i in range(N):
-    count = 0
-    num = int(input())
-    recur(num, 0)
-    answer.append(count)
-
-for i in answer:
-    print(i)
+for _ in range(T):
+    n = int(input())
+    print(dp[n])
