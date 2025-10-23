@@ -1,0 +1,7 @@
+-- 코드를 입력하세요
+-- 동물 정보
+-- 가장 최근에 들어온 동물
+
+SELECT DATETIME AS "시간"
+FROM ANIMAL_INS
+WHERE DATETIME = (SELECT MAX(DATETIME) FROM ANIMAL_INS);
