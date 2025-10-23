@@ -1,0 +1,10 @@
+-- 코드를 작성해주세요
+-- 아이템 정보: ITEM_INFO
+-- ITEM_ID, ITEM_NAME, RARITY, PRICE
+-- 아이템 ID, 아이템 명, 아이템의 희귀도, 아이템의 가격
+
+-- RARITY = 'LEGEND' AND SUM(PRICE)
+
+SELECT SUM(PRICE) AS TOTAL_PRICE
+FROM ITEM_INFO
+WHERE RARITY = 'LEGEND';
