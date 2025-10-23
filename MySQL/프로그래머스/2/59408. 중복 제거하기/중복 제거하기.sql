@@ -1,0 +1,6 @@
+-- 코드를 입력하세요
+-- 동물의 이름이 몇개인지, NULL인 경우 X, 중복 하나로
+
+SELECT COUNT(DISTINCT(NAME)) AS COUNT
+FROM ANIMAL_INS
+WHERE NAME IS NOT NULL;
