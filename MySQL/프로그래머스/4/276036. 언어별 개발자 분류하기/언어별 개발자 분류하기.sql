@@ -1,0 +1,21 @@
+-- 코드를 작성해주세요
+
+WITH front AS (SELECT SUM(CODE) AS f FROM SKILLCODES WHERE CATEGORY = 'Front End'
+),
+python AS (SELECT CODE AS p FROM SKILLCODES WHERE NAME = 'Python'
+),
+c AS (SELECT CODE AS c FROM SKILLCODES WHERE NAME = 'C#'
+)
+
+SELECT 
+    CASE 
+        WHEN d.SKILL_CODE & front.f != 0 AND d.SKILL_CODE & python.p != 0 THEN 'A'
+        WHEN d.SKILL_CODE & c.c != 0 THEN 'B'
+        WHEN d.SKILL_CODE & front.f != 0 THEN 'C'
+    END AS GRADE,
+    d.ID,
+    d.EMAIL
+FROM DEVELOPERS d
+JOIN front JOIN python JOIN c
+HAVING GRADE IS NOT NULL
+ORDER BY GRADE, d.ID
