@@ -1,0 +1,20 @@
+-- 코드를 입력하세요
+-- 거래 정보: USED_GOODS_BOARD
+    -- BOARD_ID, WRITER_ID, TITLE, CONTENTS, PRICE, CREATED_DATE, STATUS, VIEWS
+    -- 게시글 ID, 작성자 ID, 게시글 제목, 게시글 내용, 가격, 작성일, 거래상태, 조회수
+-- 사용자 정보: USED_GOODS_USER 
+    -- USER_ID, NICKNAME, CITY, STREET_ADDRESS1, STREET_ADDRESS2, TLNO
+    -- 회원 ID, 닉네임, 시, 도로명 주소, 상세 주소, 전화번호
+
+-- 출력: 중고거래 완료된 사람, 총 금액 70만원 이상, 
+-- USER_ID, NICKNAME, 총 거래금
+-- 순서: 총 거래금
+
+SELECT u.USER_ID, u.NICKNAME, SUM(PRICE) AS TOTAL_SALES
+FROM USED_GOODS_BOARD b
+JOIN USED_GOODS_USER u
+    ON b.WRITER_ID = u.USER_ID
+WHERE STATUS = 'DONE'
+GROUP BY u.USER_ID
+HAVING TOTAL_SALES >= 700000
+ORDER BY TOTAL_SALES
