@@ -1,0 +1,13 @@
+-- 코드를 입력하세요
+-- 입양보낸 정보: ANIMAL_OUTS 
+    -- ANIMAL_ID, ANIMAL_TYPE, DATETIME, NAME, SEX_UPON_OUTCOME
+    -- 동물의 아이디, 생물 종, 입양일, 이름, 성별 및 중성화 여부
+    
+-- 9시부터 19시까지 시간대별로 입양이 몇건 일어났는지 조회
+-- 순서 시간대 별로
+
+SELECT HOUR(DATETIME) AS HOUR, COUNT(ANIMAL_ID) AS COUNT
+FROM ANIMAL_OUTS
+WHERE HOUR(DATETIME) BETWEEN 9 AND 20
+GROUP BY HOUR(DATETIME)
+ORDER BY HOUR
