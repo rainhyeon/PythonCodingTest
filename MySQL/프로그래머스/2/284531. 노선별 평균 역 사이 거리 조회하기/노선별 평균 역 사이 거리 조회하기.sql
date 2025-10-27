@@ -1,0 +1,12 @@
+-- 코드를 작성해주세요
+-- 2호선 역간 거리정보: SUBWAY_DISTANCE
+    -- LINE, NO, ROUTE, STATION_NAME, D_BETWEEN_DIST, D_CUMULATIVE
+    -- 호선, 순번, 노선, 역 이름, 역 사이 거리, 노선별 누계 거리
+-- 출력: 노선별 총 누계거리, 총 역 사이 거리
+
+SELECT ROUTE, 
+    CONCAT(ROUND(SUM(D_BETWEEN_DIST), 1), 'km') AS TOTAL_DISTANCE, 
+    CONCAT(ROUND(AVG(D_BETWEEN_DIST), 2), "km") AS AVERAGE_DISTANCE
+FROM SUBWAY_DISTANCE
+GROUP BY ROUTE
+ORDER BY SUM(D_BETWEEN_DIST) DESC
