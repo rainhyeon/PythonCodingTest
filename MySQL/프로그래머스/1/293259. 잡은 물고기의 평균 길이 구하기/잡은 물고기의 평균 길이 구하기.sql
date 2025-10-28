@@ -1,0 +1,7 @@
+-- 코드를 작성해주세요
+
+WITH fish AS (SELECT ID, FISH_TYPE, IFNULL(LENGTH, 10) AS LENGTH, TIME
+             FROM FISH_INFO)
+             
+SELECT ROUND(AVG(LENGTH),2) AS AVERAGE_LENGTH
+FROM fish
