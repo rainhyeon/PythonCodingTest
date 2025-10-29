@@ -1,13 +1,12 @@
--- 코드를 입력하세요
--- 식품분류별 제일 비싼 식품
-
-SELECT f.CATEGORY, f.PRICE AS MAX_PRICE, f.PRODUCT_NAME
-FROM FOOD_PRODUCT f
-JOIN (
-    SELECT CATEGORY, MAX(PRICE) AS MAX_PRICE
-    FROM FOOD_PRODUCT
-    WHERE CATEGORY IN ('과자', '국', '김치', '식용유')
-    GROUP BY CATEGORY) m
-ON f.CATEGORY = m.CATEGORY
-AND f.PRICE = m.MAX_PRICE
-ORDER BY f.PRICE DESC;
+WITH max_price AS (SELECT MAX(PRICE) AS MAX_PRICE, CATEGORY
+                   FROM FOOD_PRODUCT 
+                   WHERE CATEGORY IN ('과자', '국', '김치', '식용유')
+                   GROUP BY CATEGORY
+)
+                   
+SELECT f.CATEGORY, m.MAX_PRICE, f.PRODUCT_NAME
+FROM max_price m
+JOIN FOOD_PRODUCT f
+    ON m.MAX_PRICE = f.PRICE
+    AND m.CATEGORY = f.CATEGORY
+ORDER BY m.MAX_PRICE DESC
