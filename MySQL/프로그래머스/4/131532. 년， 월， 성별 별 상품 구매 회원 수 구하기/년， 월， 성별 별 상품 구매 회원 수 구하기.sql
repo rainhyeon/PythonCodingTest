@@ -1,22 +1,14 @@
 -- 코드를 입력하세요
--- 회원 정보: USER_INFO 
-    -- SER_ID, GENDER, AGE, JOINED
-    -- 회원 ID, 성별, 나이, 가입일
-    
--- 판매 정보: ONLINE_SALE
-    -- ONLINE_SALE_ID, USER_ID, PRODUCT_ID, SALES_AMOUNT, SALES_DATE
-    --  상품 판매 ID, 회원 ID, 상품 ID, 판매량, 판매일
-    
--- 외래키: USER_ID
--- 추력: 
+-- 년, 월, 성별 별로 상품을 구매한 회원수를 집계
+-- 회원수는 DISTINCT로 해야함 (동일한 년월에 구매할 수 도 있으니까 - 한명으로 취급)
+-- 성별이 NULL이면 제외
 
-WITH total AS (SELECT YEAR(o.SALES_DATE) AS YEAR, MONTH(o.SALES_DATE) AS MONTH, u.GENDER, u.USER_ID
-FROM USER_INFO u
-JOIN ONLINE_SALE o
-    ON u.USER_ID = o.USER_ID
-WHERE u.GENDER IS NOT NULL)
-    
-SELECT t.YEAR, t.MONTH, t.GENDER, COUNT(DISTINCT(t.USER_ID)) AS USERS
-FROM total t
-GROUP BY t.YEAR, t.MONTH, t.GENDER
-ORDER BY t.YEAR, t.MONTH, t.GENDER
+
+SELECT YEAR(s.SALES_DATE) AS YEAR, MONTH(s.SALES_DATE) AS MONTH, 
+    i.GENDER, COUNT(DISTINCT i.USER_ID) AS USERS
+FROM USER_INFO i
+JOIN ONLINE_SALE s
+    ON i.USER_ID = s.USER_ID
+WHERE i.GENDER IS NOT NULL
+GROUP BY YEAR, MONTH, i.GENDER
+ORDER BY YEAR, MONTH, i.GENDER
