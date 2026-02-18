@@ -1,11 +1,9 @@
 def solution(triangle):
-    answer = 0
-    
-    lines = triangle[-1][:]
-    
-    for i in range(len(triangle)-2, -1, -1):
-        for j in range(len(triangle[i])):
-            lines[j] = triangle[i][j] + max(lines[j], lines[j+1])
-            
+    rev = triangle[::-1]
+
+    for y in range(len(rev)-1):
+        for x in range(len(rev[y])-1):
+            rev[y+1][x] += max(rev[y][x], rev[y][x+1]) # 위에꺼는 아래꺼들의 합 
         
-    return lines[0]
+    print(rev[-1][0]) 
+    return rev[-1][0]#맨아래 꼭지점
