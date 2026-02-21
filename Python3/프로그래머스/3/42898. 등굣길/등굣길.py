@@ -1,25 +1,33 @@
-def solution(m, n, puddles):
+def solution(m, n, puddles): # m: x, n:y
+        
     answer = 0
-    MOD = 1000000007
     
-    water = set((y-1, x-1) for x, y in puddles)
+    dp = [[-1]*m for _ in range(n)]
+    puddle_set = {(x-1, y-1) for x, y in puddles}
     
-    road = [[0] * m for _ in range(n)]
-    
-    road[0][0] = 1
-    
-    for i in range(n):
-        for j in range(m):
-            if (i,j) in water:
-                road[i][j] = 0
-                continue
+    def recur(y, x):
+        if (x, y) in puddle_set:
+            return 0
+        
+        if y == n-1 and x == m-1:
+            return 1
+        
+        if dp[y][x] != -1:
+            return dp[y][x]
+        
+        route = 0
+        # 오른쪽과 아래(y,x) > [0,1], [1,0]
+        for ey, ex in [[0,1], [1,0]]:
+            dy, dx = y + ey, x + ex
             
-            if i > 0:
-                road[i][j] += road[i-1][j]
+            # 범위 내라면
+            if 0 <= dy < n and 0 <= dx < m:
+                route += recur(dy, dx)
                 
-            if j > 0:
-                road[i][j] += road[i][j-1]
-                
-            road[i][j] %= MOD
-            
-    return road[n-1][m-1]
+        dp[y][x] = route % 1000000007
+        return dp[y][x]
+        
+        
+    answer = recur(0, 0) % 1000000007
+    
+    return answer
